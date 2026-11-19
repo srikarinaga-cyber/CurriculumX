@@ -86,12 +86,13 @@ export default function Dashboard() {
 
   function navigateTo(section: string) {
     setActiveSection(section);
-    if (section === "Benchmarks") {
-      setMetricsOpen(true);
-      return;
-    }
-    const targetId = section === "Overview" ? "overview" : section === "Curriculum" ? "curriculum" : "career-match";
-    document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const routes: Record<string, string> = {
+      Overview: "/",
+      Curriculum: "/curriculum",
+      "Career Match": "/careers",
+      Benchmarks: "/benchmarks",
+    };
+    window.location.href = routes[section];
   }
 
   return <main data-theme={theme} className={`min-h-screen ${theme === "light" ? "theme-light" : "theme-dark"} text-slate-100`}>

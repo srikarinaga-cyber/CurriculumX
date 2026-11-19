@@ -1,0 +1,11 @@
+import Link from "next/link";
+import { ArrowLeft, ArrowRight, Cpu, Gauge, ScanSearch } from "lucide-react";
+
+export default function BenchmarksPage(){return <main className="min-h-screen bg-[#090D16] text-slate-100"><div className="mx-auto max-w-6xl px-5 py-8 lg:px-8">
+<Link href="/" className="inline-flex items-center gap-2 text-sm text-slate-400 transition hover:text-blue-400"><ArrowLeft size={16}/>Back to dashboard</Link>
+<div className="mt-8"><p className="text-xs font-bold tracking-[.18em] text-fuchsia-400">MODEL BENCHMARKS</p><h1 className="mt-2 text-3xl font-bold">Methodology &amp; performance</h1><p className="mt-2 text-sm text-slate-400">Compare lexical matching against dense semantic embeddings.</p></div>
+<div className="mt-8 grid gap-4 md:grid-cols-3"><Metric title="Precision" tf="62%" dense="86%" icon={<ScanSearch/>}/><Metric title="Recall" tf="58%" dense="82%" icon={<Gauge/>}/><Metric title="Embedding model" tf="TF-IDF" dense="MiniLM-L6" icon={<Cpu/>}/></div>
+<section className="glass mt-6 rounded-2xl p-6"><h2 className="text-xl font-semibold">How matching works</h2><div className="mt-6 grid gap-4 md:grid-cols-3">{["Extract syllabus topics","Embed topics and skills","Calculate cosine similarity"].map((step,i)=><div key={step} className="relative rounded-xl border border-white/7 bg-white/[0.025] p-5"><span className="text-xs font-bold text-blue-400">0{i+1}</span><h3 className="mt-3 font-semibold">{step}</h3>{i<2&&<ArrowRight className="absolute right-[-16px] top-1/2 hidden text-slate-600 md:block"/>}</div>)}</div></section>
+</div></main>}
+
+function Metric({title,tf,dense,icon}:{title:string;tf:string;dense:string;icon:React.ReactNode}){return <article className="glass dynamic-card rounded-2xl p-5"><div className="text-violet-400">{icon}</div><h2 className="mt-4 font-semibold">{title}</h2><div className="mt-5 grid grid-cols-2 gap-3"><div className="rounded-xl border border-white/7 p-3"><p className="text-[10px] text-slate-500">TF-IDF</p><b className="mt-1 block text-xl">{tf}</b></div><div className="rounded-xl border border-violet-400/15 bg-violet-500/5 p-3"><p className="text-[10px] text-slate-500">Dense</p><b className="mt-1 block text-xl text-violet-400">{dense}</b></div></div></article>}
