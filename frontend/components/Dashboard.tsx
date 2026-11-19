@@ -4,7 +4,11 @@ import { useMemo, useState } from "react";
 import { BarChart3, BriefcaseBusiness, CheckCircle2, Download, FlaskConical, Gauge, GraduationCap, Menu, Search, Sparkles, Upload, X } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
-const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const API =
+  process.env.NEXT_PUBLIC_API_URL ||
+  (typeof window !== "undefined" && window.location.hostname !== "localhost"
+    ? "/api"
+    : "http://localhost:8000");
 
 const sampleText = `B.Sc. Artificial Intelligence and Machine Learning
 Linear Algebra, Probability and Statistics, Calculus, Discrete Mathematics,

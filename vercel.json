@@ -1,0 +1,26 @@
+{
+  "services": {
+    "api": {
+      "root": "backend",
+      "framework": "fastapi"
+    },
+    "web": {
+      "root": "frontend",
+      "framework": "nextjs"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": {
+        "service": "api"
+      }
+    },
+    {
+      "source": "/(.*)",
+      "destination": {
+        "service": "web"
+      }
+    }
+  ]
+}

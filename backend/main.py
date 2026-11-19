@@ -170,22 +170,27 @@ def analyze(syllabus_text: str, target_role: str):
     }
 
 @app.get("/health")
+@app.get("/api/health")
 def health():
     return {"status": "ok", "embedding_model_loaded": model is not None}
 
 @app.get("/roles")
+@app.get("/api/roles")
 def roles():
     return {"roles": list(ROLE_SKILLS.keys())}
 
 @app.get("/sample")
+@app.get("/api/sample")
 def sample():
     return {"syllabus_text": SAMPLE_SYLLABUS}
 
 @app.post("/analyze")
+@app.post("/api/analyze")
 def analyze_endpoint(payload: AnalysisRequest):
     return analyze(payload.syllabus_text, payload.target_role)
 
 @app.post("/analyze/pdf")
+@app.post("/api/analyze/pdf")
 async def analyze_pdf(file: UploadFile = File(...), target_role: str = "AI/ML Engineer"):
     content = await file.read()
     reader = PdfReader(io.BytesIO(content))
