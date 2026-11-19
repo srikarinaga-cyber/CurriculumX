@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { BarChart3, BriefcaseBusiness, CheckCircle2, Download, FlaskConical, Gauge, GraduationCap, Menu, Search, Sparkles, Upload, X } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { BarChart3, BriefcaseBusiness, CheckCircle2, Download, FlaskConical, Gauge, GraduationCap, Menu, Moon, Search, Sparkles, Sun, Upload, X } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 const API =
@@ -31,6 +31,17 @@ export default function Dashboard() {
   const [metricsOpen, setMetricsOpen] = useState(false);
   const [error, setError] = useState("");
   const [activeSection, setActiveSection] = useState("Overview");
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("curriculumx-theme");
+    if (savedTheme === "light" || savedTheme === "dark") setTheme(savedTheme);
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem("curriculumx-theme", theme);
+  }, [theme]);
 
   async function runAnalysis() {
     setLoading(true); setError("");
@@ -92,7 +103,7 @@ export default function Dashboard() {
     </aside>
 
     <div className="lg:ml-[240px]">
-      <header className="sticky top-0 z-20 flex h-[68px] items-center justify-between border-b border-white/7 bg-[#090D16]/85 px-5 backdrop-blur-xl lg:px-8"><div className="flex items-center gap-3"><button className="lg:hidden"><Menu size={20}/></button><div><p className="text-xs text-slate-500">Intelligence workspace</p><h1 className="text-base font-semibold">Career Readiness Dashboard</h1></div></div><button onClick={()=>setMetricsOpen(true)} className="flex items-center gap-2 rounded-lg border border-white/10 px-3 py-2 text-xs text-slate-300 hover:border-violet-400/40"><FlaskConical size={15} className="text-violet-400"/>Model metrics</button></header>
+      <header className="sticky top-0 z-20 flex h-[68px] items-center justify-between border-b border-white/7 bg-[#090D16]/85 px-5 backdrop-blur-xl lg:px-8"><div className="flex items-center gap-3"><button className="lg:hidden"><Menu size={20}/></button><div><p className="text-xs text-slate-500">Intelligence workspace</p><h1 className="text-base font-semibold">Career Readiness Dashboard</h1></div></div><div className="flex items-center gap-2"><button onClick={() => setTheme(theme === "dark" ? "light" : "dark")} aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`} title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`} className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 text-slate-300 transition hover:border-blue-400/40 hover:text-blue-400">{theme === "dark" ? <Sun size={16}/> : <Moon size={16}/>}</button><button onClick={()=>setMetricsOpen(true)} className="flex items-center gap-2 rounded-lg border border-white/10 px-3 py-2 text-xs text-slate-300 hover:border-violet-400/40"><FlaskConical size={15} className="text-violet-400"/>Model metrics</button></div></header>
 
       <div className="mx-auto max-w-[1450px] p-5 lg:p-8">
         <section id="overview" className="mb-6 grid gap-4 xl:grid-cols-[1.35fr_.65fr]">
