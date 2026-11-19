@@ -15,7 +15,14 @@ except Exception:
     SentenceTransformer = None
 
 app = FastAPI(title="CurriculumX Intelligence API", version="1.0.0")
-app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:3000"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_origin_regex=r"https://.*\.vercel\.app",
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 ROLE_SKILLS = {
     "AI/ML Engineer": [
